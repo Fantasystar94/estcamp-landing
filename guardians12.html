@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가디언즈 정보보호 및 보안 인프라 운영 관리 12기 | 이스트캠프 K-Digital Training</title>
+<link rel="icon" type="image/png" href="https://img.inhr.co.kr/static/careerlink/SEO/251218115516956s1A.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05050a;
+    --surface: #0a0a14;
+    --card: #0f0f1e;
+    --blue: #0C4A6E;
+    --blue-light: #4d8bff;
+    --cyan: #7DD3FC;
+    --accent: #0369a1;
+    --text: #f0f0ff;
+    --text-muted: #888aaa;
+    --border: rgba(255,255,255,0.07);
+    --gold: #7DD3FC;
+    --sec: #0ea5e9;
+    --sec-light: #7DD3FC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; position: relative;
+    padding: 80px 24px 60px;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(7,89,133,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 85% 80%, rgba(125,211,252,0.08) 0%, transparent 60%),
+      var(--bg);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(14,165,233,0.012) 2px, rgba(14,165,233,0.012) 4px);
+    pointer-events: none;
+  }
+
+  /* hero image fade-in */
+  .hero-img {
+    position: absolute; inset: 0;
+    background-image: url('https://img.inhr.co.kr/static/careerlink/DSGN/260313100258505CHY.png');
+    background-size: cover; background-position: center top;
+    opacity: 0.09;
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(14,165,233,0.1);
+    border: 1px solid rgba(14,165,233,0.3);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 13px; font-weight: 500; color: var(--sec-light);
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+    position: relative; z-index: 1;
+  }
+  .badge span { color: var(--cyan); font-weight: 700; }
+
+  .hero-eyebrow {
+    font-size: clamp(13px, 2.5vw, 16px);
+    color: var(--text-muted); font-weight: 400; margin-bottom: 16px;
+    animation: fadeUp 0.6s 0.1s ease both;
+    position: relative; z-index: 1;
+  }
+
+  .hero-title {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900;
+    font-size: clamp(28px, 6.5vw, 66px);
+    line-height: 1.15; letter-spacing: -1px; margin-bottom: 12px;
+    animation: fadeUp 0.6s 0.2s ease both;
+    position: relative; z-index: 1;
+  }
+  .hero-title .highlight {
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9, #7DD3FC);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-title .sub-line {
+    display: block;
+    font-size: clamp(18px, 3.5vw, 38px);
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .hero-sub {
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: var(--text-muted); line-height: 1.8; max-width: 580px;
+    margin: 20px auto 36px;
+    animation: fadeUp 0.6s 0.3s ease both;
+    position: relative; z-index: 1;
+  }
+  .hero-sub strong { color: var(--text); }
+
+  .cta-group {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    animation: fadeUp 0.6s 0.4s ease both;
+    position: relative; z-index: 1;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #075985, #0ea5e9);
+    color: #fff; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px; font-weight: 700; padding: 18px 48px;
+    border-radius: 12px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(14,165,233,0.35);
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(14,165,233,0.5); }
+  .btn-primary:hover::before { opacity: 1; }
+
+  .btn-hint {
+    font-size: 13px; color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-hint .dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 1.5s infinite; }
+
+  .info-chips {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-top: 40px;
+    animation: fadeUp 0.6s 0.45s ease both;
+    position: relative; z-index: 1;
+  }
+  .chip {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border); border-radius: 100px;
+    padding: 8px 16px; font-size: 13px; color: var(--text-muted);
+  }
+  .chip strong { color: var(--text); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 48px;
+    animation: fadeUp 0.6s 0.5s ease both;
+    flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 30px;
+    background: linear-gradient(90deg, var(--sec-light), #38bdf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 100px 24px; max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--sec-light); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900;
+    font-size: clamp(24px, 5vw, 44px); line-height: 1.2; margin-bottom: 16px;
+  }
+  .section-desc { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 48px; }
+  .divider { width: 100%; height: 1px; background: var(--border); }
+
+  /* ─── TARGET SECTION ─── */
+  .target-section { background: var(--surface); padding: 100px 24px; }
+  .target-inner { max-width: 900px; margin: 0 auto; }
+
+  .target-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .target-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px 22px; position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .target-card:hover { border-color: rgba(14,165,233,0.4); transform: translateY(-4px); }
+  .target-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #0C4A6E, #0ea5e9);
+  }
+  .target-icon { font-size: 30px; margin-bottom: 14px; }
+  .target-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .target-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ─── POINTS ─── */
+  .point-cards { display: grid; gap: 16px; margin-top: 48px; }
+  .point-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 32px 28px; display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: start;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .point-card:hover { border-color: rgba(14,165,233,0.4); transform: translateX(6px); }
+  .point-num {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 44px; line-height: 1;
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    min-width: 52px;
+  }
+  .point-tag {
+    display: inline-block;
+    background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.25);
+    border-radius: 100px; padding: 3px 12px; font-size: 11px; color: var(--sec-light);
+    margin-bottom: 10px;
+  }
+  .point-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .point-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ─── CURRICULUM ─── */
+  .curriculum-section { background: var(--surface); padding: 100px 24px; }
+  .curriculum-inner { max-width: 900px; margin: 0 auto; }
+  .cur-blocks { display: grid; gap: 16px; margin-top: 48px; }
+  .cur-block {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    overflow: hidden; transition: border-color 0.3s;
+  }
+  .cur-block:hover { border-color: rgba(14,165,233,0.3); }
+  .cur-header {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 28px; cursor: pointer; user-select: none;
+  }
+  .cur-icon { font-size: 28px; min-width: 40px; text-align: center; padding-top: 2px; }
+  .cur-info { flex: 1; }
+  .cur-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .cur-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cur-tag {
+    background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.22);
+    border-radius: 100px; padding: 2px 10px; font-size: 11px; color: var(--sec-light);
+  }
+  .cur-arrow { font-size: 18px; color: var(--text-muted); transition: transform 0.3s; padding-top: 4px; }
+  .cur-block.open .cur-arrow { transform: rotate(180deg); }
+  .cur-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .cur-block.open .cur-body { max-height: 600px; }
+  .cur-body-inner {
+    padding: 0 28px 28px; border-top: 1px solid var(--border); padding-top: 20px;
+    font-size: 13px; color: var(--text-muted); line-height: 1.9;
+  }
+  .cur-body-inner p { margin-bottom: 10px; }
+  .cur-body-inner p:last-child { margin-bottom: 0; }
+
+  /* ─── LEARNING POINTS ─── */
+  .lp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .lp-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 28px 22px; text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .lp-card:hover { border-color: rgba(14,165,233,0.4); transform: translateY(-4px); }
+  .lp-card img { width: 52px; height: 52px; object-fit: contain; margin: 0 auto 14px; display: block; }
+  .lp-card h4 { font-size: 14px; font-weight: 700; line-height: 1.5; }
+
+  /* ─── CAREER SECTION ─── */
+  .career-section { background: var(--surface); padding: 100px 24px; }
+  .career-inner { max-width: 900px; margin: 0 auto; }
+  .career-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .career-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px 22px; transition: border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .career-card:hover { border-color: rgba(14,165,233,0.35); }
+  .career-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #0ea5e9, #7DD3FC);
+  }
+  .career-icon { font-size: 28px; margin-bottom: 12px; }
+  .career-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .career-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ─── PROJECTS ─── */
+  .project-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 48px;
+  }
+  .proj-card { border-radius: 18px; overflow: hidden; border: 1px solid var(--border); }
+  .proj-card img { width: 100%; display: block; }
+
+  /* ─── BENEFITS ─── */
+  .benefits-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .benefit-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 28px 22px; transition: border-color 0.3s;
+  }
+  .benefit-card:hover { border-color: rgba(14,165,233,0.3); }
+  .benefit-num { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--sec-light); margin-bottom: 14px; }
+  .benefit-icon { font-size: 26px; margin-bottom: 12px; }
+  .benefit-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .benefit-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ─── APPLY INFO ─── */
+  .apply-section { background: var(--bg); padding: 100px 24px; }
+  .apply-inner { max-width: 900px; margin: 0 auto; }
+  .apply-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 48px; }
+  .apply-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 26px 22px; text-align: center;
+  }
+  .apply-icon { font-size: 28px; margin-bottom: 12px; }
+  .apply-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--sec-light); }
+  .apply-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── PRICING ─── */
+  .pricing-card {
+    background: linear-gradient(135deg, rgba(7,89,133,0.1), rgba(14,165,233,0.08));
+    border: 1px solid rgba(14,165,233,0.25);
+    border-radius: 24px; padding: 48px; text-align: center;
+    margin-top: 48px; position: relative; overflow: hidden;
+  }
+  .pricing-card::before {
+    content: ''; position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 2px;
+    background: linear-gradient(90deg, #0ea5e9, #7DD3FC);
+    border-radius: 2px;
+  }
+  .price-label { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
+  .price-original { font-size: 22px; color: var(--text-muted); text-decoration: line-through; margin-bottom: 4px; }
+  .price-main {
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: clamp(34px, 7vw, 56px);
+    background: linear-gradient(90deg, var(--sec-light), #38bdf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 8px;
+  }
+  .price-note { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; }
+  .price-perks { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+  .perk { text-align: center; }
+  .perk-val { font-family: 'Noto Sans KR', sans-serif; font-weight: 900; font-size: 26px; color: var(--gold); }
+  .perk-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .quota-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.3);
+    border-radius: 100px; padding: 8px 20px;
+    font-size: 13px; color: var(--cyan); font-weight: 700; margin-bottom: 32px;
+  }
+
+  /* ─── FAQ ─── */
+  .faq-list { margin-top: 48px; display: grid; gap: 12px; }
+  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .faq-q {
+    padding: 22px 28px; font-size: 14px; font-weight: 700;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    user-select: none; transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--sec-light); }
+  .faq-arrow { font-size: 18px; transition: transform 0.3s; color: var(--text-muted); }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .faq-item.open .faq-a { max-height: 500px; }
+  .faq-a-inner {
+    padding: 0 28px 24px; font-size: 13px; color: var(--text-muted); line-height: 1.8;
+    border-top: 1px solid var(--border); padding-top: 18px;
+  }
+
+  /* ─── FINAL CTA ─── */
+  .cta-section {
+    text-align: center; padding: 100px 24px 120px;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(7,89,133,0.15) 0%, transparent 70%);
+  }
+  .cta-section .section-desc { max-width: 500px; margin: 0 auto 40px; }
+
+  /* ─── FLOATING CTA ─── */
+  .floating-cta {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .floating-cta.visible { opacity: 1; pointer-events: all; }
+  .floating-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #075985, #0ea5e9);
+    color: #fff; font-size: 15px; font-weight: 700; padding: 15px 36px;
+    border-radius: 100px; text-decoration: none;
+    box-shadow: 0 8px 32px rgba(14,165,233,0.45), 0 0 0 1px rgba(255,255,255,0.1);
+    font-family: 'Noto Sans KR', sans-serif; white-space: nowrap; transition: transform 0.2s;
+  }
+  .floating-btn:hover { transform: scale(1.04); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { padding: 60px 20px 48px; min-height: auto; }
+    .hero-title { font-size: clamp(26px, 8vw, 40px); }
+    .hero-title .sub-line { font-size: clamp(16px, 4vw, 22px); }
+    .hero-sub { font-size: 14px; margin: 14px auto 28px; }
+    .btn-primary { font-size: 15px !important; padding: 15px 20px !important; width: 100%; justify-content: center; border-radius: 14px; }
+    .info-chips { gap: 8px; }
+    .chip { font-size: 11px; padding: 6px 12px; }
+    .hero-stats { gap: 10px; margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+    .stat { padding: 12px 8px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border); }
+    .stat-num { font-size: 20px !important; }
+    section { padding: 64px 20px; }
+    .target-section, .curriculum-section, .career-section, .apply-section { padding: 64px 20px; }
+    .target-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .point-card { grid-template-columns: 1fr; padding: 22px 18px; gap: 14px; }
+    .point-card:hover { transform: none; }
+    .point-num { font-size: 34px; }
+    .lp-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .career-grid { grid-template-columns: 1fr; gap: 12px; }
+    .project-grid { grid-template-columns: 1fr; gap: 12px; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 12px; }
+    .apply-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .pricing-card { padding: 28px 18px; }
+    .price-perks { flex-direction: column; align-items: center; gap: 18px; }
+    .floating-cta { bottom: 16px; width: calc(100% - 32px); }
+    .floating-btn { font-size: 14px; padding: 14px 20px; width: 100%; justify-content: center; border-radius: 14px; }
+    .cur-header { padding: 20px; gap: 14px; }
+    .cur-body-inner { padding: 16px 20px 20px; font-size: 13px; }
+    .faq-q { font-size: 13px; padding: 16px 18px; }
+    .faq-a-inner { padding: 14px 18px 18px; font-size: 12px; }
+  }
+  @media (max-width: 400px) {
+    .hero-title { font-size: 24px; }
+    .target-grid { grid-template-columns: 1fr; }
+    .apply-grid { grid-template-columns: 1fr; }
+    .lp-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── FOOTER ─── */
+  .site-footer {
+    background: #030308;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 48px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+  }
+  .footer-info { flex: 1; min-width: 200px; }
+  .footer-addr { font-size: 13px; color: #666880; margin-bottom: 6px; line-height: 1.6; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .footer-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: 100px; padding: 7px 16px;
+    font-size: 12px; font-weight: 700; text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .footer-link:hover { opacity: 0.8; transform: translateY(-1px); }
+  .footer-link.kakao { background: rgba(254,229,0,0.12); border: 1px solid rgba(254,229,0,0.25); color: #fde047; }
+  .footer-link.insta { background: rgba(225,48,108,0.1); border: 1px solid rgba(225,48,108,0.25); color: #f472b6; }
+  .footer-link.mail { background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.25); color: var(--cyan); }
+  .footer-link.est { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #aaa; }
+  .footer-copy {
+    max-width: 900px; margin: 28px auto 0;
+    font-size: 11px; color: #444560;
+    border-top: 1px solid rgba(255,255,255,0.04); padding-top: 20px;
+  }
+  @media (max-width: 768px) {
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .footer-links { gap: 8px; }
+    .footer-link { font-size: 11px; padding: 6px 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-img"></div>
+  <div class="badge">🛡️ <span>가디언즈 12기</span> 이스트캠프 K-Digital Training</div>
+  <p class="hero-eyebrow">정보보호 및 보안 인프라 운영 관리</p>
+  <h1 class="hero-title">
+    <span class="highlight">사이버 위협으로부터</span><br>
+    <span class="sub-line">조직을 지키는 보안 전문가</span>
+  </h1>
+  <p class="hero-sub">
+    글로벌 보안 시장은 계속 성장 중입니다.<br>
+    <strong>이스트소프트 현직 실무진</strong>과 함께 실전 보안 전문가로 거듭나세요.
+  </p>
+  <div class="cta-group">
+    <a href="https://naver.me/Gxr4rh6z" target="_blank" class="btn-primary">
+      🛡️ 무료로 수강 신청하기
+    </a>
+    <span class="btn-hint">
+      <span class="dot"></span>
+      서류 접수 마감 ~2026.05.26 · 80명 선발
+    </span>
+  </div>
+
+  <div class="info-chips">
+    <div class="chip">⏰ <strong>2026.05.27 ~ 10.13</strong></div>
+    <div class="chip">🖥️ <strong>100% 실시간 온라인</strong></div>
+    <div class="chip">🕘 <strong>평일 9시 ~ 18시</strong></div>
+    <div class="chip">💸 <strong>국비지원 (자부담 최대 50만원)</strong></div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">80명</div>
+      <div class="stat-label">선발 인원</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5개월</div>
+      <div class="stat-label">실전 집중 교육</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">국비지원</div>
+      <div class="stat-label">자부담 최대 50만원</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">30만원</div>
+      <div class="stat-label">매월 훈련 장려금</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TARGET -->
+<div class="target-section">
+  <div class="target-inner reveal">
+    <p class="section-label">For You</p>
+    <h2 class="section-title">이런 분들께<br><span style="background:linear-gradient(90deg,#0ea5e9,#7DD3FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">추천드려요!</span></h2>
+    <p class="section-desc">전공·경력 무관, 보안에 관심 있는 누구에게나 열려 있습니다.</p>
+    <div class="target-grid">
+      <div class="target-card">
+        <div class="target-icon">🔑</div>
+        <h4>비전공자 취업 희망자</h4>
+        <p>인프라 보안 직군 취업·이직을 희망하는 비전공자</p>
+      </div>
+      <div class="target-card">
+        <div class="target-icon">🗺️</div>
+        <h4>커리어 전환 희망자</h4>
+        <p>어디서 어떻게 시작할지 막연한 분들을 위한 체계적 로드맵</p>
+      </div>
+      <div class="target-card">
+        <div class="target-icon">💻</div>
+        <h4>실무 포트폴리오 필요한 전공자</h4>
+        <p>현업 프로젝트 경험과 실전 포트폴리오가 필요한 분</p>
+      </div>
+      <div class="target-card">
+        <div class="target-icon">🏢</div>
+        <h4>이스트소프트 계열사 취업 희망</h4>
+        <p>이스트소프트와 함께 인프라 보안 커리어를 쌓고 싶은 분</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- POINTS -->
+<section class="reveal">
+  <p class="section-label">Education Points</p>
+  <h2 class="section-title">가디언즈만의<br>교육 포인트</h2>
+  <p class="section-desc">현직 실무진이 설계한 현업 수준의 교육, 이스트소프트가 보장합니다.</p>
+
+  <div class="point-cards">
+    <div class="point-card">
+      <div class="point-num">01</div>
+      <div>
+        <div class="point-tag">1,300만원+ 지원금</div>
+        <h3>국비 지원 97~100% + 장비 · 장려금</h3>
+        <p>수강료 13,358,400원 전액 국비 지원. 자기부담금 최대 50만원, 매월 훈련장려금 최대 30만원, 실습 장비(웹캠·랩탑) 지원으로 비용 걱정 없이 학습에만 집중할 수 있습니다.</p>
+      </div>
+    </div>
+    <div class="point-card">
+      <div class="point-num">02</div>
+      <div>
+        <div class="point-tag">현업 실무 과정</div>
+        <h3>전/현직 인프라 보안 실무진 강사진</h3>
+        <p>IT 인프라·보안 운영 전문가 및 이스트소프트 현직자가 설계한 현업 실무 과정과 특강. 전/현직 실무진으로 구성된 강사진이 실무 중심 커리큘럼을 직접 강의합니다.</p>
+      </div>
+    </div>
+    <div class="point-card">
+      <div class="point-num">03</div>
+      <div>
+        <div class="point-tag">A-Z 통합 프로젝트</div>
+        <h3>이스트소프트 실제 서비스 기반 대형 프로젝트</h3>
+        <p>이스트소프트 실제 서비스를 기반으로 A-Z 통합 프로젝트를 진행합니다. 세션별 미니 프로젝트와 자체 프로그램을 통해 다양한 포트폴리오를 제작할 수 있습니다.</p>
+      </div>
+    </div>
+    <div class="point-card">
+      <div class="point-num">04</div>
+      <div>
+        <div class="point-tag">취업 연계</div>
+        <h3>이스트 계열사 인턴십 직접 연계</h3>
+        <p>우수 수료생은 자체 인턴십 진행 후 평가를 통해 정규직 전환 기회 제공. 모든 수료생은 이스트소프트 및 계열사 인턴십 공채 서류전형 우대 혜택을 받습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CURRICULUM -->
+<div class="curriculum-section">
+  <div class="curriculum-inner reveal">
+    <p class="section-label">Curriculum</p>
+    <h2 class="section-title">인프라보안 교육 과정</h2>
+    <p class="section-desc">#IT보안 #사이버전문가 #네트워크보호 #시스템보안설계</p>
+
+    <div class="cur-blocks">
+      <div class="cur-block">
+        <div class="cur-header" onclick="toggleCur(this)">
+          <div class="cur-icon">🏗️</div>
+          <div class="cur-info">
+            <div class="cur-title">IT 인프라의 이해</div>
+            <div class="cur-tags">
+              <span class="cur-tag">Architecture</span>
+              <span class="cur-tag">WEB/DNS/DHCP</span>
+              <span class="cur-tag">서비스 보안</span>
+              <span class="cur-tag">취약점 분석</span>
+            </div>
+          </div>
+          <span class="cur-arrow">⌄</span>
+        </div>
+        <div class="cur-body">
+          <div class="cur-body-inner">
+            <p>IT 인프라 이해를 위한 시스템 및 네트워크 보안 구성 기초 학습에 활용되는 아키텍처 사례들을 학습합니다.</p>
+            <p>IT 서비스(WEB, DNS, DHCP, SMB, Mail, FTP, CDN 등) 구성 및 동작과 사용 중 취약점 이해, 이를 보완할 서비스 관리 보안에 대해 학습합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cur-block">
+        <div class="cur-header" onclick="toggleCur(this)">
+          <div class="cur-icon">🔒</div>
+          <div class="cur-info">
+            <div class="cur-title">보안 인프라 운영 관리</div>
+            <div class="cur-tags">
+              <span class="cur-tag">FW/IPS/WAF</span>
+              <span class="cur-tag">모의해킹</span>
+              <span class="cur-tag">패킷분석</span>
+              <span class="cur-tag">침해사고 대응</span>
+            </div>
+          </div>
+          <span class="cur-arrow">⌄</span>
+        </div>
+        <div class="cur-body">
+          <div class="cur-body-inner">
+            <p>보안 시스템(FW, DDOS, IPS, WAF, SSL Inspection, WIPS 등) 종류 및 기능을 이해하며 보안 시스템 아키텍처 설계/구축을 진행합니다.</p>
+            <p>해킹 종류 및 기술적 이해와 침해 사고 대응/분석을 학습하여 보안 관제 시스템, 악성 공격, Credential Stuffing 탐지 등 관리적 보안 시스템 운영을 학습합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cur-block">
+        <div class="cur-header" onclick="toggleCur(this)">
+          <div class="cur-icon">🏢</div>
+          <div class="cur-info">
+            <div class="cur-title">기업 정보 보호 관리</div>
+            <div class="cur-tags">
+              <span class="cur-tag">ISMS</span>
+              <span class="cur-tag">모의해킹 (Web/Android/iOS)</span>
+              <span class="cur-tag">GRC</span>
+              <span class="cur-tag">개인정보 보호</span>
+            </div>
+          </div>
+          <span class="cur-arrow">⌄</span>
+        </div>
+        <div class="cur-body">
+          <div class="cur-body-inner">
+            <p>정보 보호 관리체계(ISMS)에서 다루는 관리 체계를 학습합니다. IT 비즈니스에 필요한 보안성 평가(시스템 취약점 진단 및 Web, Android/iOS 모의해킹)를 학습합니다.</p>
+            <p>기업 정보 보안 지침 구축(GRC)에 대해 사례 연구와 기본 구축을 진행합니다. 개인정보 보호의 수집부터 보유, 이용, 제공, 파기까지의 안전한 관리 방법과 핵심 원칙을 학습합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- LEARNING POINTS -->
+<section class="reveal">
+  <p class="section-label">Learning Points</p>
+  <h2 class="section-title">과정 주요<br>학습 포인트</h2>
+  <p class="section-desc">실무에서 즉시 활용 가능한 7가지 핵심 역량을 길러드립니다.</p>
+
+  <div class="lp-grid">
+    <div class="lp-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/2603131036529596eo.png" alt="아키텍처 설계">
+      <h4>IT 시스템/보안<br>인프라 아키텍처 설계</h4>
+    </div>
+    <div class="lp-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313112431586rQv.png" alt="리눅스/윈도우">
+      <h4>리눅스/윈도우<br>시스템 운영</h4>
+    </div>
+    <div class="lp-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313112408467pct.png" alt="네트워크 보안">
+      <h4>네트워크 보안<br>아키텍처 & 침해 대응</h4>
+    </div>
+    <div class="lp-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313112030341Von.png" alt="네트워크 설계">
+      <h4>네트워크 설계 &<br>프로토콜 엔지니어링</h4>
+    </div>
+    <div class="lp-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313111036140Zco.png" alt="DB 서버">
+      <h4>데이터베이스<br>서버 운영</h4>
+    </div>
+    <div class="lp-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313111528259OHK.png" alt="정보보호">
+      <h4>정보보호<br>관리 기술</h4>
+    </div>
+    <div class="lp-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313111324760l2p.png" alt="프로젝트">
+      <h4>실전 팀<br>프로젝트 수행</h4>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CAREER FIELDS -->
+<div class="career-section">
+  <div class="career-inner reveal">
+    <p class="section-label">Career Paths</p>
+    <h2 class="section-title">수업 후<br>취업 분야</h2>
+    <p class="section-desc">가디언즈를 수료하고 나아갈 수 있는 다양한 보안 전문직군.</p>
+
+    <div class="career-grid">
+      <div class="career-card">
+        <div class="career-icon">🛡️</div>
+        <h3>기업 정보보안 관리자</h3>
+        <p>기업의 정보보호 정책을 수립하고, 보안 인프라를 운영 및 관리하는 전문 관리자</p>
+      </div>
+      <div class="career-card">
+        <div class="career-icon">📝</div>
+        <h3>보안 컨설턴트</h3>
+        <p>조직의 보안 취약점을 분석하고 맞춤형 보안 전략과 솔루션을 제안하는 전문가</p>
+      </div>
+      <div class="career-card">
+        <div class="career-icon">🚨</div>
+        <h3>침해사고 대응 전문가 (CERT)</h3>
+        <p>Splunk, ELK Stack 등을 활용해 보안 사고를 분석하고 재발 방지 조치를 수행하는 전문가</p>
+      </div>
+      <div class="career-card">
+        <div class="career-icon">🧑‍💻</div>
+        <h3>사이버 위협 분석가</h3>
+        <p>최신 보안 위협과 공격 기법을 연구하고 위협 인텔리전스, IoC 분석 등으로 보안 체계를 강화하는 전문가</p>
+      </div>
+      <div class="career-card">
+        <div class="career-icon">🔍</div>
+        <h3>취약점 연구원</h3>
+        <p>시스템 및 애플리케이션의 보안 취약점을 연구하고 공격 시나리오를 분석하는 전문가</p>
+      </div>
+      <div class="career-card">
+        <div class="career-icon">⚙️</div>
+        <h3>보안 엔지니어</h3>
+        <p>FW, IDS/IPS, WAF, SIEM, EDR 등 보안 시스템을 설계·구축·운영하며 IT 인프라를 보호하는 전문가</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section class="reveal">
+  <p class="section-label">Projects</p>
+  <h2 class="section-title">프로젝트 소개</h2>
+  <p class="section-desc">실무 환경을 모사한 3가지 심화 프로젝트로 포트폴리오를 완성합니다.</p>
+
+  <div class="project-grid">
+    <div class="proj-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313113705662Srr.png" alt="프로젝트 1">
+    </div>
+    <div class="proj-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313114212920Gwh.png" alt="프로젝트 2">
+    </div>
+    <div class="proj-card">
+      <img src="https://img.inhr.co.kr/static/careerlink/DSGN/260313114159824bz5.png" alt="프로젝트 3">
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BENEFITS -->
+<div class="curriculum-section">
+  <div class="curriculum-inner reveal">
+    <p class="section-label">Benefits</p>
+    <h2 class="section-title">가디언즈 수강생만의<br>혜택</h2>
+    <p class="section-desc">개강 전부터 취업까지, 이 모든 혜택이 신청만 하면 무료!</p>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-num">BENEFIT 01</div>
+        <div class="benefit-icon">📚</div>
+        <h3>개강 전 온라인 학습 콘텐츠</h3>
+        <p>사전/보충 학습을 위한 맞춤형 VOD 콘텐츠. 교육생 선발 이후 수료 이전까지 상시 제공</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">BENEFIT 02</div>
+        <div class="benefit-icon">💬</div>
+        <h3>현직자 & 커리어 코치 소통</h3>
+        <p>이스트소프트 현직자의 현업 이야기, 커리어 코치의 이력서 작성 및 면접 노하우 제공</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">BENEFIT 03</div>
+        <div class="benefit-icon">💻</div>
+        <h3>장비 및 학습 공간 지원</h3>
+        <p>교육에 100% 몰두할 수 있도록 웹캠, 랩톱 장비 및 학습 공간 지원</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">BENEFIT 04</div>
+        <div class="benefit-icon">🔄</div>
+        <h3>수료 후 커리어 코칭</h3>
+        <p>수료 후에도 취업까지 이어지는 직무 특강, 이력서 첨삭, 면접 특강, 모의 면접 등 지속 제공</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- APPLY INFO -->
+<div class="apply-section">
+  <div class="apply-inner reveal">
+    <p class="section-label">Apply</p>
+    <h2 class="section-title">가디언즈 합류<br>안내</h2>
+    <p class="section-desc">스펙과 관계없이 지원서 내용을 토대로 열정과 적합 여부를 고려하여 선발합니다.</p>
+
+    <div class="apply-grid">
+      <div class="apply-card">
+        <div class="apply-icon">📋</div>
+        <h3>서류 접수</h3>
+        <p>~ 2026.05.26<br>마감 전 서둘러 지원하세요</p>
+      </div>
+      <div class="apply-card">
+        <div class="apply-icon">📣</div>
+        <h3>합격자 발표</h3>
+        <p>서류 접수 후<br>3일(영업일) 내 개별 안내</p>
+      </div>
+      <div class="apply-card">
+        <div class="apply-icon">💳</div>
+        <h3>수강 신청</h3>
+        <p>내일배움카드 사전 발급 후<br>HRD-Net 수강 신청 완료</p>
+      </div>
+      <div class="apply-card">
+        <div class="apply-icon">🚀</div>
+        <h3>개강</h3>
+        <p>2026.05.27<br>개강 1주 전 온보딩 메일 발송</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section class="reveal">
+  <p class="section-label">Pricing</p>
+  <h2 class="section-title">비용 걱정없이<br>시작하세요!</h2>
+
+  <div class="pricing-card">
+    <div class="quota-badge">
+      🔥 80명 선발 · 서류 마감 2026.05.26
+    </div>
+    <div class="price-label">13,358,400원 상당의 보안 실무 교육</div>
+    <div class="price-original">13,358,400원</div>
+    <div class="price-main">자기부담금 최대 50만원</div>
+    <div class="price-note">
+      내일배움카드로 국비 지원 97~100%<br>
+      <span style="font-size:12px;">(*훈련비 지원 유형에 따라 본인부담이 경감 또는 면제될 수 있습니다)</span>
+    </div>
+    <div class="price-perks">
+      <div class="perk">
+        <div class="perk-val">30만원</div>
+        <div class="perk-label">매월 훈련 장려금</div>
+      </div>
+      <div class="perk">
+        <div class="perk-val">무료</div>
+        <div class="perk-label">장비 지원 (노트북/웹캠)</div>
+      </div>
+      <div class="perk">
+        <div class="perk-val">정규직</div>
+        <div class="perk-label">우수 수료생 전환 기회</div>
+      </div>
+    </div>
+    <a href="https://naver.me/Gxr4rh6z" target="_blank" class="btn-primary" style="font-size:18px; padding:18px 52px;">
+      🛡️ 지금 바로 지원하기
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="reveal">
+  <p class="section-label">FAQ</p>
+  <h2 class="section-title">자주 묻는 질문</h2>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">지원 자격이 있나요? <span class="faq-arrow">⌄</span></div>
+      <div class="faq-a"><div class="faq-a-inner">국민내일배움카드 보유 혹은 발급 가능한 분, 5년 이내 K-Digital Training 수강 이력이 없는 분, 평일 09:00~18:00 풀타임 참여 가능한 분이면 지원 가능합니다. 단, 사립학교 교직원, 연 매출 1.5억 이상 자영업자, 월 임금 300만원 이상 45세 미만 대기업 종사자, 특수형태근로종사자는 카드 발급 대상에서 제외됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">다른 기관에서 교육을 받았는데 신청 가능한가요? <span class="faq-arrow">⌄</span></div>
+      <div class="faq-a"><div class="faq-a-inner">이전 KDT 과정 수강 이력(수료·하차·포기 포함)이 있으면 자비 부담금이 발생할 수 있으나 신청은 가능합니다. K-디지털트레이닝 이외 과정은 문제없이 신청 가능합니다. HRD-NET에서 나의 훈련 이력을 확인하세요.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">학교·직장과 병행이 가능한가요? <span class="faq-arrow">⌄</span></div>
+      <div class="faq-a"><div class="faq-a-inner">실시간 온라인 교육으로 평일 09:00~18:00 풀타임으로 진행됩니다. 학업·직장과의 병행은 어려우므로, 수강 시간을 온전히 확보할 수 있는 분께 권장합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">비전공자도 수업을 따라갈 수 있나요? <span class="faq-arrow">⌄</span></div>
+      <div class="faq-a"><div class="faq-a-inner">사전 설문을 기반으로 커리큘럼을 구성하며, 다수의 비전공자 교육 경험을 바탕으로 강사진과 운영진이 세심하게 지원합니다. 걱정하지 마세요!</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">개인 일정으로 수업에 빠지게 되면 어떡하나요? <span class="faq-arrow">⌄</span></div>
+      <div class="faq-a"><div class="faq-a-inner">병원 진료, 면접, 예비군 등 증빙 서류 제출 시 출결 정정이 가능합니다. 수업 자료와 교안을 제공하며 강사진과 멘토진이 진도를 따라갈 수 있도록 도와드립니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="cta-section reveal">
+  <p class="section-label">Apply Now</p>
+  <h2 class="section-title">지금 지원하고<br>보안 전문가가 되세요</h2>
+  <p class="section-desc">80명 한정 · 서류 마감 2026.05.26 · 국비지원 · 매월 훈련 장려금 30만원</p>
+  <a href="https://naver.me/Gxr4rh6z" target="_blank" class="btn-primary" style="font-size:18px; padding:18px 52px;">
+    🛡️ 12기 무료 지원하기
+  </a>
+</div>
+
+<!-- FLOATING CTA -->
+<div class="floating-cta" id="floatingCta">
+  <a href="https://naver.me/Gxr4rh6z" target="_blank" class="floating-btn">
+    🛡️ 12기 무료 지원하기 →
+  </a>
+</div>
+
+<script>
+  function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+  function toggleCur(el) { el.parentElement.classList.toggle('open'); }
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  const floatingCta = document.getElementById('floatingCta');
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) floatingCta.classList.add('visible');
+  window.addEventListener('scroll', () => {
+    if (!isMobile) floatingCta.classList.toggle('visible', window.scrollY > 600);
+  });
+</script>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-info">
+      <p class="footer-addr">📍 서울시 서초구 반포대로 3, 이스트빌딩</p>
+      <p class="footer-addr">© 2026 ESTfamily All Rights Reserved.</p>
+      <div class="footer-links">
+        <a href="http://pf.kakao.com/_cEgsn/chat" target="_blank" class="footer-link kakao">
+          <span>💬</span> Kakao채널 문의
+        </a>
+        <a href="https://www.instagram.com/estbootcamp/" target="_blank" class="footer-link insta">
+          <span>📷</span> 이스트캠프 인스타그램
+        </a>
+        <a href="mailto:estcampus@estsoft.com" class="footer-link mail">
+          <span>✉️</span> 문의 메일
+        </a>
+        <a href="https://estfamily.career.greetinghr.com/ko/home" target="_blank" class="footer-link est">
+          <span>🏢</span> ESTfamily 채용
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
